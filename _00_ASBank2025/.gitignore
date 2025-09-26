@@ -1,3 +1,11 @@
+# Tests
+target
+
+# Bdd
+WebContent/WEB-INF/applicationContext.xml
+src/test/resources/TestsBanqueManager-context.xml
+src/test/resources/TestsDaoHibernate-context.xml
+
 # Compiled class file
 *.class
 
