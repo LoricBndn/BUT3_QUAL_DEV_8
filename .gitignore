@@ -1,3 +1,7 @@
+_00_ASBank2025/src/test/resources/TestsBanqueManager-context.xml
+_00_ASBank2025/src/test/resources/TestsDaoHibernate-context.xml
+_00_ASBank2025/WebContent/WEB-INF/applicationContext.xml
+
 # Compiled class file
 *.class
 
