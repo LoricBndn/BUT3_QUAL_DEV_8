@@ -5,6 +5,8 @@ import com.iut.banque.interfaces.IDao;
 import com.iut.banque.modele.Gestionnaire;
 import com.iut.banque.modele.Utilisateur;
 
+import com.iut.banque.cryptage.PasswordHasher;
+
 public class LoginManager {
 
 	private IDao dao;
@@ -36,20 +38,43 @@ public class LoginManager {
 	 * @return int correspondant aux constantes LoginConstants pour inforer de
 	 *         l'état du login
 	 */
-	public int tryLogin(String userCde, String userPwd) {
-		if (dao.isUserAllowed(userCde, userPwd)) {
-			user = dao.getUserById(userCde);
-			if (user instanceof Gestionnaire) {
-				return LoginConstants.MANAGER_IS_CONNECTED;
-			} else {
-				return LoginConstants.USER_IS_CONNECTED;
-			}
-		} else {
-			return LoginConstants.LOGIN_FAILED;
-		}
-	}
+    public int tryLogin(String userCde, String userPwd) {
+        // Récupérer compte utilisateur en fonction du userCde
+        Utilisateur user = dao.getUserById(userCde);
+        if (user == null) return LoginConstants.LOGIN_FAILED;
 
-	/**
+        // Mdp en bdd
+        String pwdBdd = user.getUserPwd();
+
+        boolean authenticated = false;
+
+        // si mdp pas hash (en clair dans la pdd)
+        if (userPwd.equals(pwdBdd)) {
+            authenticated = true;
+
+            // hash mdp
+            String newHash = PasswordHasher.hashPassword(userPwd);
+            user.setUserPwd(newHash);
+            dao.updateUser(user);
+        }
+        // sinon si mdp en bdd déjà hash
+        else if (PasswordHasher.verifyPassword(userPwd, pwdBdd)) {
+            authenticated = true;
+        }
+
+        if (authenticated) {
+            if (user instanceof Gestionnaire) {
+                return LoginConstants.MANAGER_IS_CONNECTED;
+            } else {
+                return LoginConstants.USER_IS_CONNECTED;
+            }
+        }
+
+        return LoginConstants.LOGIN_FAILED;
+    }
+
+
+    /**
 	 * Getter pour avoir l'objet Utilisateur de celui qui est actuellement
 	 * connecté à l'application
 	 * 

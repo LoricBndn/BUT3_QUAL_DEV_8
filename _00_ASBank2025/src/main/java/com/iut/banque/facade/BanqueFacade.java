@@ -49,6 +49,7 @@ public class BanqueFacade {
 	 *         prévient de l'état du login
 	 */
 	public int tryLogin(String userCde, String userPwd) {
+
 		int result = loginManager.tryLogin(userCde, userPwd);
 		if (result == LoginConstants.MANAGER_IS_CONNECTED) {
 			banqueManager.loadAllClients();
