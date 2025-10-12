@@ -40,7 +40,7 @@ public class LoginManager {
 	 */
     public int tryLogin(String userCde, String userPwd) {
         // Récupérer compte utilisateur en fonction du userCde
-        Utilisateur user = dao.getUserById(userCde);
+        user = dao.getUserById(userCde);
         if (user == null) return LoginConstants.LOGIN_FAILED;
 
         // Mdp en bdd
