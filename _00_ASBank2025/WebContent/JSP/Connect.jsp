@@ -15,6 +15,11 @@
 			<s:submit name="Retour" value="Logout" />
 		</s:form>
 	</div>
+    <div class="btnLogout" style="top : 150px;">
+        <s:form name="myForm" action="logout" method="POST">
+            <s:submit name="Retour" value="Changer mon mot de passe" />
+        </s:form>
+    </div>
 	<h1>Tableau de bord</h1>
 	<p>
 		Bienvenue <b><s:property value="connectedUser.prenom" /> <s:property
