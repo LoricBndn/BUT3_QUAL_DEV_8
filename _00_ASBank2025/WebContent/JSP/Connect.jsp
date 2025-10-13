@@ -16,7 +16,7 @@
 		</s:form>
 	</div>
     <div class="btnLogout" style="top : 150px;">
-        <s:form name="myForm" action="logout" method="POST">
+        <s:form name="myForm" action="resetPwd" method="POST">
             <s:submit name="Retour" value="Changer mon mot de passe" />
         </s:form>
     </div>

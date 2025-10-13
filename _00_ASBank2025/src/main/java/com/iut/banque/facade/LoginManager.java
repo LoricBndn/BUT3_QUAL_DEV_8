@@ -103,4 +103,32 @@ public class LoginManager {
 		this.user = null;
 		dao.disconnect();
 	}
+
+    /**
+     *
+     * Vérifie si l'ancien mot de passe concorde avec celui stocké en bdd
+     * puis modification du mot de passe
+     *
+     * @param userCde
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    public boolean resetPassword(String userCde, String oldPassword, String newPassword) {
+        user = dao.getUserById(userCde);
+
+        if (user == null) return false;
+
+        // Vérifier l'ancien mot de passe
+        if (!PasswordHasher.verifyPassword(oldPassword, user.getUserPwd())) {
+            return false;
+        }
+
+        // Mettre à jour avec le nouveau mot de passe
+        String hashed = PasswordHasher.hashPassword(newPassword);
+        user.setUserPwd(hashed);
+        dao.updateUser(user);
+
+        return true;
+    }
 }

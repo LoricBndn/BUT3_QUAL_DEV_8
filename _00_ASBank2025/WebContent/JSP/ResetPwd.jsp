@@ -13,9 +13,7 @@
 <body>
 <h1>Réinitialiser mot de passe</h1>
 
-<s:form id="resetForm" name="resetForm" action="resetPassword" method="POST">
-
-    <s:hidden name="clientId" value="%{client.userId}" />
+<s:form id="resetPwd" name="resetPwd" action="resetPwd" method="POST">
 
     <s:password label="Ancien mot de passe" name="oldPassword" />
 
