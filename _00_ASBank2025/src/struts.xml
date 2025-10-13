@@ -59,6 +59,11 @@
 			<result>/JSP/Login.jsp</result>
 		</action>
 
+        <!-- Gestion mot de passe -->
+        <action name="resetPwd">
+            <result>/JSP/ResetPwd.jsp</result>
+        </action>
+
 		<!-- Appel de la page compte avec un paramètre donné -->
 
 		<action name="urlDetail" class="com.iut.banque.controller.DetailCompte">
