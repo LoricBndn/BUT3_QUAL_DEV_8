@@ -41,6 +41,8 @@ public class LoginManager {
     public int tryLogin(String userCde, String userPwd) {
         // Récupérer compte utilisateur en fonction du userCde
         user = dao.getUserById(userCde);
+        System.out.println(userCde);
+        System.out.println(user.toString());
         if (user == null) return LoginConstants.LOGIN_FAILED;
 
         // Mdp en bdd
@@ -115,16 +117,25 @@ public class LoginManager {
      * @return
      */
     public boolean resetPassword(String userCde, String oldPassword, String newPassword) {
+        System.out.println("\nIn resetPassword method from LoginManager class");
+        System.out.println("userCde: " + userCde);
+        System.out.println("User : "  + user);
+
+        System.out.println(dao.getUserById(userCde));
         user = dao.getUserById(userCde);
+
+        System.out.println("user: " + user);
 
         if (user == null) return false;
 
         // Vérifier l'ancien mot de passe
+        System.out.println("Verif ancien pwd");
         if (!PasswordHasher.verifyPassword(oldPassword, user.getUserPwd())) {
             return false;
         }
 
         // Mettre à jour avec le nouveau mot de passe
+        System.out.println("MAJ pwd");
         String hashed = PasswordHasher.hashPassword(newPassword);
         user.setUserPwd(hashed);
         dao.updateUser(user);

@@ -60,8 +60,13 @@
 		</action>
 
         <!-- Gestion mot de passe -->
-        <action name="resetPwd">
-            <result>/JSP/ResetPwd.jsp</result>
+        <action name="urlResetPwd" class="com.iut.banque.controller.ResetPwd">
+            <result name="success">/JSP/ResetPwd.jsp</result>
+        </action>
+
+        <action name="resetPwdForm" class="com.iut.banque.controller.ResetPwd" method="reset">
+            <result name="success">/JSP/Index.jsp</result>
+            <result name="error">/JSP/ResetPwd.jsp</result>
         </action>
 
 		<!-- Appel de la page compte avec un paramètre donné -->

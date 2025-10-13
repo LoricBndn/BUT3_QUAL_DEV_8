@@ -7,13 +7,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Réinitialiser mot de passe</title>
     <link rel="stylesheet" href="/_00_ASBank2023/style/style.css" />
-    <script src="/_00_ASBank2025/js/jquery.js"></script>
+    <script src="/_00_ASBank2023/js/jquery.js"></script>
 </head>
 
 <body>
 <h1>Réinitialiser mot de passe</h1>
 
-<s:form id="resetPwdform" name="resetPwd" action="resetPwd" method="POST">
+<%--<p>Debug : userCde = <s:property value="userCde"/></p>--%>
+
+<s:form id="resetPwdForm" name="resetPwdForm" action="resetPwdForm" method="POST">
+
+    <s:hidden name="userCde" value="%{userCde}" />
 
     <s:password label="Ancien mot de passe" name="oldPassword" />
 
@@ -28,17 +32,11 @@
     <s:submit name="Retour" value="Retour" />
 </s:form>
 
-<s:if test="result">
-    <s:if test="!error">
-        <div class="success">
-            <s:property value="message" />
-        </div>
-    </s:if>
-    <s:else>
-        <div class="failure">
-            <s:property value="message" />
-        </div>
-    </s:else>
+<s:if test="%{error != \"\"}">
+    <div class="failure">
+        Erreur :
+        <s:property value="message" />
+    </div>
 </s:if>
 
 </body>
