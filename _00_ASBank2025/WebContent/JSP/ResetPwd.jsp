@@ -28,9 +28,11 @@
     <s:submit name="submit" value="Confirmer" />
 </s:form>
 
-<s:form name="backForm" action="listeCompteManager" method="POST">
-    <s:submit name="Retour" value="Retour" />
-</s:form>
+<div class="btnBack">
+    <s:form name="myForm" action="retourTableauDeBordClient" method="POST">
+        <s:submit name="Retour" value="Retour" />
+    </s:form>
+</div>
 
 <s:if test="%{error != \"\"}">
     <div class="failure">
