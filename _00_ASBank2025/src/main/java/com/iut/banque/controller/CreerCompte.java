@@ -155,6 +155,9 @@ public class CreerCompte extends ActionSupport {
 		case "SUCCESS":
 			this.message = "Le compte " + compte.getNumeroCompte() + " a bien été créé.";
 			break;
+        default:
+            this.message = "Erreur";
+            break;
 		}
 	}
 
