@@ -3,6 +3,8 @@ package com.iut.banque.test.modele;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.iut.banque.exceptions.IllegalOperationException;
+import com.iut.banque.modele.CompteAvecDecouvert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -140,4 +142,33 @@ public class TestsCompte {
 			fail("String " + strNumCompte + " validée dans le test");
 		}
 	}
+
+    @Test
+    public void testCompteSansDecouvertToString() {
+        try {
+            Client client = new Client("Billy", "Bob", "2 rue du pain perdu", true, "b.billy1", "password", "0000000001");
+            Compte compteTest = new CompteSansDecouvert("FR1234567890", 250.75, client);
+
+            String expectedString = "CompteSansDecouvert [numeroCompte=FR1234567890, solde=250.75, owner=b.billy1]";
+
+            assertEquals(expectedString, compteTest.toString());
+        } catch (IllegalFormatException e) {
+            fail("Une exception ne devrait pas être levée : " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCompteAvecDecouvertToString() {
+        try {
+            Client client = new Client("Billy", "Bob", "2 rue du pain perdu", true, "b.billy1", "password", "0000000001");
+            Compte compteTest = new CompteAvecDecouvert("FR1234567890", 250.75, 100.00, client);
+
+            String expectedString = "CompteAvecDecouvert [decouvertAutorise=100.0, numeroCompte=FR1234567890, solde=250.75, owner=b.billy1]";
+
+            assertEquals(expectedString, compteTest.toString());
+        } catch (IllegalFormatException | IllegalOperationException e) {
+            fail("Une exception ne devrait pas être levée : " + e.getMessage());
+        }
+    }
+
 }

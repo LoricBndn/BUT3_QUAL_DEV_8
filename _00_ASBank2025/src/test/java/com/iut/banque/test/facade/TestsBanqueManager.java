@@ -2,6 +2,8 @@ package com.iut.banque.test.facade;
 
 import static org.junit.Assert.fail;
 
+import com.iut.banque.exceptions.IllegalFormatException;
+import com.iut.banque.modele.Client;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iut.banque.exceptions.IllegalOperationException;
 import com.iut.banque.facade.BanqueManager;
+
+import java.util.Map;
 
 //@RunWith indique à JUnit de prendre le class runner de Spirng
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -166,5 +170,4 @@ public class TestsBanqueManager {
 			fail("Une Exception " + te.getClass().getSimpleName() + " a été récupérée");
 		}
 	}
-
 }
