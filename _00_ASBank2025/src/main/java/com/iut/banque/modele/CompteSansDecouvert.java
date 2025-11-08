@@ -55,6 +55,6 @@ public class CompteSansDecouvert extends Compte {
 	 */
 	@Override
 	public String toString() {
-		return "CompteSansDecouvert [numeroCompte=" + numeroCompte + ", solde=" + solde + ", owner=" + owner + "]";
+		return "CompteSansDecouvert [numeroCompte=" + numeroCompte + ", solde=" + solde + ", owner=" + owner.getUserId() + "]";
 	}
 }

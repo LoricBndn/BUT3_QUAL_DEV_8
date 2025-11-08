@@ -106,6 +106,6 @@ public class CompteAvecDecouvert extends Compte {
 	@Override
 	public String toString() {
 		return "CompteAvecDecouvert [decouvertAutorise=" + decouvertAutorise + ", numeroCompte=" + numeroCompte
-				+ ", solde=" + solde + ", owner=" + owner + "]";
+				+ ", solde=" + solde + ", owner=" + owner.getUserId() + "]";
 	}
 }
