@@ -1,1 +1,1 @@
-mvn clean verify sonar:sonar -Dsonar.projectKey=BUT3_QUAL_DEV -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_d1752ae7168097051b5af3a08814ef4755932b83
+mvn clean verify sonar:sonar -Dsonar.projectKey=BUT3_QUAL_DEV -Dsonar.host.url=https://sonarcloud.io  -Dsonar.login=sqp_d1752ae7168097051b5af3a08814ef4755932b83
