@@ -44,9 +44,10 @@ public class Connect extends ActionSupport {
 	 */
 	public String login() {
 		System.out.println("Essai de login - 20180512...");
+        final String error = "ERROR";
 
 		if (userCde == null || userPwd == null) {
-			return "ERROR";
+			return error;
 		}
 		userCde = userCde.trim();
 
@@ -67,10 +68,10 @@ public class Connect extends ActionSupport {
 			return "SUCCESSMANAGER";
 		case LoginConstants.LOGIN_FAILED:
 			System.out.println("login failed");
-			return "ERROR";
+			return error;
 		default:
 			System.out.println("error");
-			return "ERROR";
+			return error;
 		}
 	}
 

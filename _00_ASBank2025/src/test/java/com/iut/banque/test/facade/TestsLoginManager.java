@@ -41,7 +41,6 @@ public class TestsLoginManager {
             String plainPwd = "adminpass";
 
             Utilisateur u = dao.getUserById(userId);
-            Assume.assumeTrue("Utilisateur de test absent, test annulé", u != null);
 
             // Mdp en clair dans la bdd
             u.setUserPwd(plainPwd);
@@ -50,6 +49,9 @@ public class TestsLoginManager {
             int result = lm.tryLogin(userId, plainPwd);
             assertTrue("L'authentification doit réussir après migration",
                     result == LoginConstants.USER_IS_CONNECTED || result == LoginConstants.MANAGER_IS_CONNECTED);
+
+            u.setUserPwd(plainPwd);
+            dao.updateUser(u);
         } catch (Exception e) {
             assertTrue("Exception inattendue : " + e.getMessage(), false);
         }
@@ -74,6 +76,9 @@ public class TestsLoginManager {
             int result = lm.tryLogin(userId, newPwd);
             assertTrue("Connexion avec le nouveau mot de passe doit réussir",
                     result == LoginConstants.USER_IS_CONNECTED || result == LoginConstants.MANAGER_IS_CONNECTED);
+
+            u.setUserPwd(oldPlain);
+            dao.updateUser(u);
         } catch (Exception e) {
             assertTrue("Exception inattendue : " + e.getMessage(), false);
         }
