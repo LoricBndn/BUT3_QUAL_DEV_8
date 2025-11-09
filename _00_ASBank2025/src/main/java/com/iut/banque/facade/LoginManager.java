@@ -142,4 +142,21 @@ public class LoginManager {
 
         return true;
     }
+
+    /**
+     * Récupère un utilisateur par son ID
+     * @param userId L'identifiant de l'utilisateur
+     * @return L'utilisateur ou null s'il n'existe pas
+     */
+    public Utilisateur getUserById(String userId) {
+        return dao.getUserById(userId);
+    }
+
+    /**
+     * Met à jour un utilisateur dans la base de données
+     * @param user L'utilisateur à mettre à jour
+     */
+    public void updateUser(Utilisateur user) {
+        dao.updateUser(user);
+    }
 }
