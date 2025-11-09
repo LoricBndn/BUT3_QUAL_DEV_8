@@ -189,16 +189,14 @@ public class DaoHibernate implements IDao {
 	 */
 	@Override
 	public boolean isUserAllowed(String userId, String userPwd) {
-		Session session = null;
 		if (userId == null || userPwd == null) {
 			return false;
 		} else {
-			session = sessionFactory.openSession();
 			userId = userId.trim();
 			if ("".equals(userId) || "".equals(userPwd)) {
 				return false;
 			} else {
-				session = sessionFactory.getCurrentSession();
+				Session session = sessionFactory.getCurrentSession();
 				Utilisateur user = session.get(Utilisateur.class, userId);
 				if (user == null) {
 					return false;
