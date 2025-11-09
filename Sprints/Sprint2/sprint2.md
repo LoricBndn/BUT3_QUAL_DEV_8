@@ -3,11 +3,15 @@
 ## Indicateurs
 
 | Indicateur                        | Début de sprint | Fin de sprint | Évolution |
-|-----------------------------------|---------------- |---------------|-----------|
-| Nombre de tests                   |       83        |               |           |
-| Couverture de code (%)            |      33.4%      |               |           |
-| Nombre d’issues (bugs/problèmes)  |       141       |               |           |
+|-----------------------------------|-----------------|---------------|-----------|
+| Nombre de tests                   | 83              | 88            | +5        |
+| Couverture de code (%)            | 33.4%           | 38.7%         | +5.3%     |
+| Nombre d'issues (bugs/problèmes)  | 141             | 146           | +5        |
 
-## Capture d’écran
+## Captures d'écran
 
-![SonarCloud](sonarcloud_capture.png)
+### Début de sprint
+![SonarCloud - Début](sonarcloud_capture_(07-11-2025).png.png)
+
+### Fin de sprint
+![SonarCloud - Fin](sonarcloud_capture_(09-11-2025).png.png)
