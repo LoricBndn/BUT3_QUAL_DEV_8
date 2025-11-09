@@ -6,7 +6,7 @@
 |-----------------------------------|-----------------|---------------|-----------|
 | Nombre de tests                   | 83              | 88            | +5        |
 | Couverture de code (%)            | 33.4%           | 38.7%         | +5.3%     |
-| Nombre d'issues (bugs/problèmes)  | 141             | 146           | +5        |
+| Nombre d'issues (bugs/problèmes)  | 141             | 146           | +5 (-2+7) |
 
 ## Captures d'écran
 
