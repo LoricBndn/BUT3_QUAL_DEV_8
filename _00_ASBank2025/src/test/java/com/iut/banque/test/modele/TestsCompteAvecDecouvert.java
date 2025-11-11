@@ -21,7 +21,33 @@ public class TestsCompteAvecDecouvert {
 		compte = new CompteAvecDecouvert("FR0123456789", 100, 100, new Client());
 	}
 
-	/**
+    @Test
+    public void testCompteAvecDecouvertDecouvertNegatif() {
+        try {
+            new CompteAvecDecouvert("FR9876543210", 0, -50, new Client());
+            fail("La création d'un compte avec découvert négatif n'a pas renvoyé d'exception!");
+        } catch (IllegalFormatException ife) {
+            // attendu
+        } catch (Exception e) {
+            fail("Exception de type " + e.getClass().getSimpleName()
+                    + " récupérée alors qu'une IllegalFormatException était attendue");
+        }
+    }
+
+    @Test
+    public void testCompteAvecDecouvertDecouvertInferieurASoldeDevraitEchouer() {
+        try {
+            new CompteAvecDecouvert("FR1122334455", -150, 100, new Client());
+            fail("La création d'un compte avec découvert inférieur à |solde| n'a pas renvoyé d'exception!");
+        } catch (IllegalOperationException ioe) {
+            // attendu
+        } catch (Exception e) {
+            fail("Exception de type " + e.getClass().getSimpleName()
+                    + " récupérée alors qu'une IllegalOperationException était attendue");
+        }
+    }
+
+    /**
 	 * Test de la classe getClassName() pour les CompteAvecDecouvert
 	 */
 	@Test

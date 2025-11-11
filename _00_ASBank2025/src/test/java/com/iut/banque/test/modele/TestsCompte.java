@@ -79,6 +79,18 @@ public class TestsCompte {
 		}
 	}
 
+    @Test
+    public void testConstruireCompteSansNumeroCompte() {
+        try {
+            compte = new CompteSansDecouvert("", 0, new Client());
+            fail("Exception non renvoyée avec un numéro de compte vide");
+        } catch (IllegalFormatException ife) {
+        } catch (Exception e) {
+            fail("Exception de type " + e.getClass().getSimpleName()
+                    + " récupérée à la place d'une de type IllegalFormatException");
+        }
+    }
+
 	@Test
 	public void testMethodeCheckFormatNumeroCompteCorrect() {
 		String strNumCompte = "FR0123456789";
