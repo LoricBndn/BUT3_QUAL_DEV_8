@@ -21,7 +21,7 @@ import java.util.Map;
 // @ContextConfiguration permet de charger le context utilisé pendant les tests.
 // Par défault (si aucun argument n'est précisé), cherche le fichier
 /// src/com/iut/banque/test/TestsDaoHibernate-context.xml
-@ContextConfiguration("/test/resources/TestsBanqueManager-context.xml")
+@ContextConfiguration("classpath:TestsBanqueManager-context.xml")
 @Transactional("transactionManager")
 public class TestsBanqueManager {
 
