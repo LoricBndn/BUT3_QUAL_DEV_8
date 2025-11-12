@@ -2,6 +2,7 @@ package com.iut.banque.test.modele;
 
 import static org.junit.Assert.fail;
 
+import com.iut.banque.exceptions.IllegalFormatException;
 import org.junit.Test;
 
 import com.iut.banque.modele.Client;
@@ -21,6 +22,17 @@ public class TestsClient {
 			fail("String " + strClient + " refusé dans le test");
 		}
 	}
+
+    @Test
+    public void testMethodeCheckFormatUserIdClientIncorrect() throws Exception {
+        try {
+            Client c = new Client("John", "Doe", "20 rue Bouvier", true, "1.invalide", "password", "1234567890");
+            fail("Exception non renvoyée pour un userId client incorrect");
+        } catch (IllegalFormatException ife) {
+            // Exception
+        }
+    }
+
 
 	@Test
 	public void testMethodeCheckFormatUserIdClientCommencantParUnChiffre() {
