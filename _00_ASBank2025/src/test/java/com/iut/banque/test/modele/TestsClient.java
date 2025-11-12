@@ -110,6 +110,29 @@ public class TestsClient {
 	 * Tests successifs de la méthode de vérification du format du numéro de
 	 * client
 	 */
+    @Test
+    public void testNumeroClientNull() {
+        try {
+            Client c = new Client("John", "Doe", "20 rue Bouvier", true, "j.doe1", "password", null);
+            fail("Exception non renvoyée pour un numéro de client null");
+        } catch (IllegalArgumentException iae) {
+            // Exception
+        } catch (Exception e) {
+            fail("Exception de type " + e.getClass().getSimpleName()
+                    + " récupérée alors qu'une IllegalArgumentException était attendue");
+        }
+    }
+
+    @Test
+    public void testMethodeCheckFormatNumeroClientInvalide() {
+        try {
+            Client c = new Client("John", "Doe", "20 rue Bouvier", true, "j.doe1", "password", "12345A7890");
+            fail("Exception non renvoyée pour un numéro de client invalide");
+        } catch (IllegalFormatException ife) {
+            // Exception
+        }
+    }
+
 	@Test
 	public void testMethodeCheckFormatNumeroClientCorrect() {
 		String strClient = "1234567890";
