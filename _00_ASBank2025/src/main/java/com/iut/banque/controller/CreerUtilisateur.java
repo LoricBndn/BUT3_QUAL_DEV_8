@@ -199,6 +199,8 @@ public class CreerUtilisateur extends ActionSupport {
      * @return String : le status de l'action
      */
     public String creationUtilisateur() {
+        final String error = "ERROR";
+        final String success = "SUCCESS";
         try {
             if (client) {
                 banque.createClient(userId, userPwd, nom, prenom, adresse, male, numClient);
@@ -206,24 +208,24 @@ public class CreerUtilisateur extends ActionSupport {
                 banque.createManager(userId, userPwd, nom, prenom, adresse, male);
             }
             this.message = "Le nouvel utilisateur avec le user id '" + userId + "' a bien été crée.";
-            this.result = "SUCCESS";
-            return "SUCCESS";
+            this.result = success;
+            return success;
         } catch (IllegalOperationException e) {
             this.message = "L'identifiant à déjà été assigné à un autre utilisateur de la banque.";
-            this.result = "ERROR";
-            return "ERROR";
+            this.result = error;
+            return error;
         } catch (TechnicalException e) {
             this.message = "Le numéro de client est déjà assigné à un autre client.";
-            this.result = "ERROR";
-            return "ERROR";
+            this.result = error;
+            return error;
         } catch (IllegalArgumentException e) {
             this.message = "Le format de l'identifiant est incorrect.";
-            this.result = "ERROR";
-            return "ERROR";
+            this.result = error;
+            return error;
         } catch (IllegalFormatException e) {
             this.message = "Format du numéro de client incorrect.";
-            this.result = "ERROR";
-            return "ERROR";
+            this.result = error;
+            return error;
         }
     }
 }
