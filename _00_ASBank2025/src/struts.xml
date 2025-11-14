@@ -305,6 +305,25 @@
         <action name="urlAjoutUtilisateur" class="com.iut.banque.controller.CreerUtilisateur">
             <result>/JSP/CreerUtilisateur.jsp</result>
         </action>
+        <!-- MOT DE PASSE OUBLIÉ -->
+        <action name="forgotPasswordForm" class="com.iut.banque.controller.ForgotPassword" method="showForm">
+            <result name="success">/JSP/ForgotPassword.jsp</result>
+        </action>
 
+        <action name="forgotPasswordRequest" class="com.iut.banque.controller.ForgotPassword" method="requestReset">
+            <result name="success">/JSP/ForgotPassword.jsp</result>
+            <result name="error">/JSP/ForgotPassword.jsp</result>
+            <result name="NOEMAIL">/JSP/ForgotPassword-NoEmail.jsp</result>
+        </action>
+
+        <action name="resetPasswordWithToken" class="com.iut.banque.controller.ResetPasswordWithToken" method="showForm">
+            <result name="success">/JSP/ResetPasswordWithToken.jsp</result>
+            <result name="error">/JSP/ResetPasswordWithToken.jsp</result>
+        </action>
+
+        <action name="resetPasswordWithTokenSubmit" class="com.iut.banque.controller.ResetPasswordWithToken" method="resetPassword">
+            <result name="success">/JSP/ResetPasswordWithToken.jsp</result>
+            <result name="error">/JSP/ResetPasswordWithToken.jsp</result>
+        </action>
     </package>
 </struts>

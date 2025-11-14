@@ -16,7 +16,7 @@ public class ForgotPassword extends ActionSupport {
     private String userCde;
     private String message;
     private boolean error;
-    private final LoginManager loginManager;
+    private LoginManager loginManager;
 
     public ForgotPassword() {
         System.out.println("In constructor from ForgotPassword class");
