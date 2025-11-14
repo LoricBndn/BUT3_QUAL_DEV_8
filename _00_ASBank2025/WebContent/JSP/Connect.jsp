@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Tableau de bord</title>
-<link rel="stylesheet" href="/_00_ASBank2023/style/style.css" />
+<link rel="stylesheet" href="/_00_ASBank2025/style/style.css" />
 </head>
 <body>
 	<div class="btnLogout">
@@ -28,33 +28,36 @@
 	</p>
 	<p>Voici l'état de vos comptes :</p>
 	<table>
-		<tr>
-			<td><b>Numéro de compte</b></td>
-			<td><b>Type de compte</b></td>
-			<td><b>Solde actuel</b></td>
-		</tr>
-		<s:iterator value="accounts">
-			<tr>
-				<td><s:url action="urlDetail" var="urlDetail">
-						<s:param name="compte"><s:property value="key" /></s:param> 
-						<%-- <s:param name="idCompte"><s:property value="key" /></s:param> --%>
-					</s:url> <s:a href="%{urlDetail}">
-						<s:property value="key" />
-					</s:a></td>
-				<s:if test="%{value.className == \"CompteAvecDecouvert\"}">
-					<td>Découvert possible</td>
-				</s:if>
-				<s:else>
-					<td>Simple</td>
-				</s:else>
-				<s:if test="%{value.solde >= 0}">
-					<td><s:property value="value.solde" /></td>
-				</s:if>
-				<s:else>
-					<td class="soldeNegatif"><s:property value="value.solde" /></td>
-				</s:else>
-			</tr>
-		</s:iterator>
+        <thead>
+            <tr>
+                <th>Numéro de compte</th>
+                <th>Type de compte</th>
+                <th>Solde actuel</th>
+            </tr>
+        </thead>
+        <tbody> <s:iterator value="accounts">
+            <tr>
+                <td><s:url action="urlDetail" var="urlDetail">
+                    <s:param name="compte"><s:property value="key" /></s:param>
+                    <%-- <s:param name="idCompte"><s:property value="key" /></s:param> --%>
+                </s:url> <s:a href="%{urlDetail}">
+                    <s:property value="key" />
+                </s:a></td>
+                <s:if test="%{value.className == \"CompteAvecDecouvert\"}">
+                    <td>Découvert possible</td>
+                </s:if>
+                <s:else>
+                    <td>Simple</td>
+                </s:else>
+                <s:if test="%{value.solde >= 0}">
+                    <td><s:property value="value.solde" /></td>
+                </s:if>
+                <s:else>
+                    <td class="soldeNegatif"><s:property value="value.solde" /></td>
+                </s:else>
+            </tr>
+        </s:iterator>
+        </tbody>
 	</table>
 </body>
 <jsp:include page="/JSP/Footer.jsp" />

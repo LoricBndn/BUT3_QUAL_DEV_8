@@ -19,7 +19,7 @@ public class Connect extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String userCde;
 	private String userPwd;
-	private BanqueFacade banque;
+	private transient BanqueFacade banque;
 
 	/**
 	 * Constructeur de la classe Connect

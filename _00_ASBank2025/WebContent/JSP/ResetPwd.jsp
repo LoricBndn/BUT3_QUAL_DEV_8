@@ -1,13 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Réinitialiser mot de passe</title>
-    <link rel="stylesheet" href="/_00_ASBank2023/style/style.css" />
-    <script src="/_00_ASBank2023/js/jquery.js"></script>
+    <link rel="stylesheet" href="/_00_ASBank2025/style/style.css" />
+    <script src="/_00_ASBank2025/js/jquery.js"></script>
 </head>
 
 <body>

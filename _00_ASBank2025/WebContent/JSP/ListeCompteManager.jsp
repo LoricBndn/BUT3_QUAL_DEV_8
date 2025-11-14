@@ -17,7 +17,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Liste des comptes de la banque</title>
-<link rel="stylesheet" href="/_00_ASBank2023/style/style.css" />
+<link rel="stylesheet" href="/_00_ASBank2025/style/style.css" />
 </head>
 <body>
 	<div class="btnLogout">
@@ -97,7 +97,7 @@
 								</s:url>
 								<td><s:a href="%{editAccount}">
 										<img
-											src="http://freeflaticons.com/wp-content/uploads/2014/10/write-copy-14138051958gn4k.png"
+											src="https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-92-256.png"
 											style="width: 20px; height: 20px" alt="Editer ce compte"
 											title="Editer ce compte" />
 									</s:a></td>
