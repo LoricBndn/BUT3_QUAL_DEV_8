@@ -19,12 +19,12 @@ public class CreerCompte extends ActionSupport {
 	private String numeroCompte;
 	private boolean avecDecouvert;
 	private double decouvertAutorise;
-	private Client client;
+	private transient Client client;
 	private String message;
 	private boolean error;
 	private boolean result;
-	private BanqueFacade banque;
-	private Compte compte;
+	private transient BanqueFacade banque;
+	private transient Compte compte;
 
 	/**
 	 * @param compte
