@@ -1,0 +1,1 @@
+docker build -t banque_iut_2025 .
