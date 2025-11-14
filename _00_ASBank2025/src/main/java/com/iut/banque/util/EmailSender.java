@@ -15,7 +15,7 @@ public class EmailSender {
     public static boolean sendPasswordResetEmail(String toEmail, String resetToken, String userId) {
         try {
             // Génération du lien de réinitialisation
-            String resetLink = "http://localhost:8080/_00_ASBank2025/resetPasswordWithToken?token=" + resetToken + "&userId=" + userId;
+            String resetLink = "http://localhost:8081/_00_ASBank2025/resetPasswordWithToken?token=" + resetToken + "&userId=" + userId;
 
             // Simulation d'envoi d'email (affichage dans la console)
             System.out.println("========================================");

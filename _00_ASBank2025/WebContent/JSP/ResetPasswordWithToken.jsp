@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Réinitialiser le mot de passe</title>
-    <link rel="stylesheet" href="/_00_ASBank2023/style/style.css" />
+    <link rel="stylesheet" href="/_00_ASBank2025/style/style.css" />
 </head>
 <body>
 <h1>Réinitialiser votre mot de passe</h1>

@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Email non associé</title>
-    <link rel="stylesheet" href="/_00_ASBank2023/style/style.css" />
+    <link rel="stylesheet" href="/_00_ASBank2025/style/style.css" />
 </head>
 <body>
 <h1>Email non associé à votre compte</h1>
