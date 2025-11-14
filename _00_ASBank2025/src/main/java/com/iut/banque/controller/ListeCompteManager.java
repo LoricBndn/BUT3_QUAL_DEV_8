@@ -17,10 +17,10 @@ import com.iut.banque.modele.Compte;
 public class ListeCompteManager extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private BanqueFacade banque;
+	private transient BanqueFacade banque;
 	private boolean aDecouvert;
-	private Compte compte;
-	private Client client;
+	private transient Compte compte;
+	private transient Client client;
 	private String userInfo;
 	private String compteInfo;
 

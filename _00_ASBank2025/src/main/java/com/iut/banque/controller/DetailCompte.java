@@ -15,10 +15,10 @@ import com.opensymphony.xwork2.ActionSupport;
 public class DetailCompte extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	protected BanqueFacade banque;
+	protected transient BanqueFacade banque;
 	private String montant;
 	private String error;
-	protected Compte compte;
+	protected transient Compte compte;
 
 	/**
 	 * Constructeur du controlleur DetailCompte
