@@ -307,6 +307,8 @@ public class TestsBanqueFacade {
             Compte compte = facade.getCompte("CADV000000");
             facade.deleteAccount(compte);
             // Si on arrive ici sans exception, le compte ne devrait pas avoir été supprimé
+            Compte compteApres = facade.getCompte("CADV000000");
+            assertNotNull("Le compte ne devrait pas avoir été supprimé par un non-gestionnaire", compteApres);
             facade.logout();
         } catch (Exception e) {
             // Une exception peut être levée ou non selon l'implémentation
@@ -322,6 +324,9 @@ public class TestsBanqueFacade {
                     "123 Test Street", true);
             // Si on arrive ici sans exception, le manager ne devrait pas avoir été créé
             facade.logout();
+            // Vérifier que le manager n'a pas été créé en tentant de se connecter
+            int loginResult = facade.tryLogin("t.testmanager2", "password");
+            assertEquals("Le manager ne devrait pas avoir été créé par un non-gestionnaire", LoginConstants.LOGIN_FAILED, loginResult);
         } catch (Exception e) {
             // Une exception peut être levée ou non selon l'implémentation
             facade.logout();
@@ -336,6 +341,9 @@ public class TestsBanqueFacade {
                     "123 Test Street", true, "NUM777777");
             // Si on arrive ici sans exception, le client ne devrait pas avoir été créé
             facade.logout();
+            // Vérifier que le client n'a pas été créé en tentant de se connecter
+            int loginResult = facade.tryLogin("t.testclient2", "password");
+            assertEquals("Le client ne devrait pas avoir été créé par un non-gestionnaire", LoginConstants.LOGIN_FAILED, loginResult);
         } catch (Exception e) {
             // Une exception peut être levée ou non selon l'implémentation
             facade.logout();
@@ -346,9 +354,11 @@ public class TestsBanqueFacade {
     public void TestDeleteUserNonGestionnaire() {
         try {
             facade.tryLogin("j.doe1", "toto");
+            // Créer un utilisateur factice pour le test
             Utilisateur user = new Client("test", "test", "Test", true, "Test", "NUM000003", "123456789");
             facade.deleteUser(user);
-            // Si on arrive ici sans exception, l'utilisateur ne devrait pas avoir été supprimé
+            // Si on arrive ici sans exception, l'opération ne devrait pas avoir eu d'effet
+            assertNotNull("L'opération deleteUser ne devrait pas affecter le système pour un non-gestionnaire", facade.getConnectedUser());
             facade.logout();
         } catch (Exception e) {
             // Une exception peut être levée ou non selon l'implémentation
@@ -360,7 +370,8 @@ public class TestsBanqueFacade {
     public void TestLoadClientsNonGestionnaire() {
         facade.tryLogin("j.doe1", "toto");
         facade.loadClients();
-        // Pas d'assertion spécifique, juste vérifier que ça ne plante pas
+        // Vérifier que l'opération ne plante pas et que l'utilisateur reste connecté
+        assertNotNull("L'utilisateur devrait rester connecté après loadClients", facade.getConnectedUser());
         facade.logout();
     }
 
