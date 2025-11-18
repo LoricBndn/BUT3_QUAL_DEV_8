@@ -9,7 +9,6 @@ import com.iut.banque.interfaces.IDao;
 import com.iut.banque.modele.Utilisateur;
 import com.iut.banque.cryptage.PasswordHasher;
 
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,5 @@
 package com.iut.banque.test.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -20,11 +13,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iut.banque.controller.ListeCompteManager;
-import com.iut.banque.exceptions.IllegalOperationException;
-import com.iut.banque.exceptions.TechnicalException;
 import com.iut.banque.facade.BanqueFacade;
 import com.iut.banque.modele.Client;
 import com.iut.banque.modele.Compte;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:TestsListeCompteManager-context.xml")
@@ -221,7 +214,7 @@ public class TestsListeCompteManager {
 	public void testDeleteAccountAvecSoldeNonNulRetourneNonemptyaccount() {
 		Compte compte = banqueFacade.getCompte("CADNV00000");
 		assertNotNull("Le compte CADNV00000 devrait exister", compte);
-		assertTrue("Le solde devrait être différent de 0", compte.getSolde() != 0);
+        assertNotEquals ("Le solde devrait être différent de 0", compte.getSolde() != 0);
 
 		listeCompteManager.setCompte(compte);
 		String result = listeCompteManager.deleteAccount();
@@ -234,7 +227,7 @@ public class TestsListeCompteManager {
 	public void testDeleteAccountSansDecouvertAvecSoldeNonNulRetourneNonemptyaccount() {
 		Compte compte = banqueFacade.getCompte("CSDNV00000");
 		assertNotNull("Le compte CSDNV00000 devrait exister", compte);
-		assertTrue("Le solde devrait être différent de 0", compte.getSolde() != 0);
+        assertNotEquals("Le solde devrait être différent de 0", compte.getSolde() != 0);
 
 		listeCompteManager.setCompte(compte);
 		String result = listeCompteManager.deleteAccount();

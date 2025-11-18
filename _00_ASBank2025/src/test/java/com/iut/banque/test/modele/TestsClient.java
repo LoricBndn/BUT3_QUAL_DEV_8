@@ -26,7 +26,7 @@ public class TestsClient {
     @Test
     public void testMethodeCheckFormatUserIdClientIncorrect() throws Exception {
         try {
-            Client c = new Client("John", "Doe", "20 rue Bouvier", true, "1.invalide", "password", "1234567890");
+            new Client("John", "Doe", "20 rue Bouvier", true, "1.invalide", "password", "1234567890");
             fail("Exception non renvoyée pour un userId client incorrect");
         } catch (IllegalFormatException ife) {
             // Exception
@@ -113,7 +113,7 @@ public class TestsClient {
     @Test
     public void testNumeroClientNull() {
         try {
-            Client c = new Client("John", "Doe", "20 rue Bouvier", true, "j.doe1", "password", null);
+            new Client("John", "Doe", "20 rue Bouvier", true, "j.doe1", "password", null);
             fail("Exception non renvoyée pour un numéro de client null");
         } catch (IllegalArgumentException iae) {
             // Exception
@@ -126,7 +126,7 @@ public class TestsClient {
     @Test
     public void testMethodeCheckFormatNumeroClientInvalide() {
         try {
-            Client c = new Client("John", "Doe", "20 rue Bouvier", true, "j.doe1", "password", "12345A7890");
+            new Client("John", "Doe", "20 rue Bouvier", true, "j.doe1", "password", "12345A7890");
             fail("Exception non renvoyée pour un numéro de client invalide");
         } catch (IllegalFormatException ife) {
             // Exception
