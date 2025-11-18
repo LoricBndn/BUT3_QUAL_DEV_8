@@ -1,0 +1,47 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: asbank-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: but3_qual_prod
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./script/01-init-db.sql:/docker-entrypoint-initdb.d/01-init-db.sql
+      - ./script/02-init-test.sql:/docker-entrypoint-initdb.d/02-init-test.sql
+      - ./script/03-init-prod.sql:/docker-entrypoint-initdb.d/03-init-prod.sql
+    networks:
+      - asbank-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: asbank-app
+    ports:
+      - "8081:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - asbank-network
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=but3_qual_prod
+      - DB_USER=root
+      - DB_PASSWORD=root
+
+networks:
+  asbank-network:
+    driver: bridge
+
+volumes:
+  mysql_data:

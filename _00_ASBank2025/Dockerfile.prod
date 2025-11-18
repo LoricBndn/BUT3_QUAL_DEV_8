@@ -1,0 +1,33 @@
+# Image unique avec Maven et Tomcat pour build et run
+FROM tomcat:9.0-jdk17-temurin-jammy
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Installer Maven, netcat et unzip
+RUN apt-get update && apt-get install -y maven netcat unzip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copier les fichiers du projet
+COPY pom.xml .
+COPY src ./src
+COPY WebContent ./WebContent
+
+# Télécharger les dépendances en cache (skip les plugins non disponibles)
+RUN mvn -B dependency:resolve || true
+
+# Remplacer localhost par mysql dans les configurations de test pour Docker
+RUN find src/test/resources -name "*.xml" -type f -exec sed -i 's/localhost:3306/mysql:3306/g' {} \; && \
+    find src/test/resources -name "*.xml" -type f -exec sed -i 's/<property name="password" value="" \/>/<property name="password" value="root" \/>/g' {} \;
+
+# Copier le fichier de configuration Spring pour Docker
+COPY WebContent/WEB-INF/applicationContext-docker.xml /tmp/applicationContext-docker.xml
+
+# Créer le script de démarrage qui exécute les tests puis lance Tomcat
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN sed -i 's/\r$//' /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
+
+EXPOSE 8080
+
+CMD ["/docker-entrypoint.sh"]

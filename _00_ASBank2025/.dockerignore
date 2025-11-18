@@ -1,0 +1,28 @@
+# Fichiers et dossiers à exclure du build Docker
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.iml
+
+# Build et dépendances
+target/
+*.class
+
+# Scripts (déjà copiés via volumes)
+script/
+
+# Docker
+Dockerfile
+Dockerfile.prod
+docker-compose.yml
+.dockerignore
+
+# Divers
+*.md
+*.bat
+.claude/
