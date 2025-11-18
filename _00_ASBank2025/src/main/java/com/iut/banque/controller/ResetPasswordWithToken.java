@@ -1,6 +1,8 @@
 package com.iut.banque.controller;
 
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -12,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ResetPasswordWithToken extends ActionSupport {
 
+    private static final Logger logger = LoggerFactory.getLogger(ResetPasswordWithToken.class);
     private static final long serialVersionUID = 1L;
     private String token;
     private String userId;
@@ -22,7 +25,7 @@ public class ResetPasswordWithToken extends ActionSupport {
     private final LoginManager loginManager;
 
     public ResetPasswordWithToken() {
-        System.out.println("In constructor from ResetPasswordWithToken class");
+        logger.debug("In constructor from ResetPasswordWithToken class");
         ApplicationContext context = WebApplicationContextUtils
                 .getRequiredWebApplicationContext(ServletActionContext.getServletContext());
         this.loginManager = (LoginManager) context.getBean("loginManager");
@@ -81,7 +84,7 @@ public class ResetPasswordWithToken extends ActionSupport {
      * Affiche le formulaire de réinitialisation avec validation du token
      */
     public String showForm() {
-        System.out.println("Affichage du formulaire de réinitialisation pour token : " + token);
+        logger.info("Affichage du formulaire de réinitialisation pour token : {}", token);
 
         // Valider le token
         String validatedUserId = ResetTokenManager.validateToken(token);
@@ -105,7 +108,7 @@ public class ResetPasswordWithToken extends ActionSupport {
      * Réinitialise le mot de passe avec le token
      */
     public String resetPassword() {
-        System.out.println("Réinitialisation du mot de passe pour token : " + token);
+        logger.info("Réinitialisation du mot de passe pour token : {}", token);
 
         try {
             // Valider le token

@@ -1,11 +1,15 @@
 package com.iut.banque.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.iut.banque.exceptions.IllegalFormatException;
 import com.iut.banque.exceptions.IllegalOperationException;
 import com.iut.banque.modele.CompteAvecDecouvert;
 
 public class DetailCompteEdit extends DetailCompte {
 
+	private static final Logger logger = LoggerFactory.getLogger(DetailCompteEdit.class);
 	private static final long serialVersionUID = 1L;
 	private String decouvertAutorise;
 
@@ -14,8 +18,8 @@ public class DetailCompteEdit extends DetailCompte {
 	 */
 	public DetailCompteEdit() {
 		super();
-		System.out.println("======================================");
-		System.out.println("Dans le constructeur DetailCompteEdit");
+		logger.debug("======================================");
+		logger.debug("Dans le constructeur DetailCompteEdit");
 	}
 
 	/**

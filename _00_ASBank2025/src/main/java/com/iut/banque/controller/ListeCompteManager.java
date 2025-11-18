@@ -3,6 +3,8 @@ package com.iut.banque.controller;
 import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -16,6 +18,7 @@ import com.iut.banque.modele.Compte;
 
 public class ListeCompteManager extends ActionSupport {
 
+	private static final Logger logger = LoggerFactory.getLogger(ListeCompteManager.class);
 	private static final long serialVersionUID = 1L;
 	private transient BanqueFacade banque;
 	private boolean aDecouvert;
@@ -31,7 +34,7 @@ public class ListeCompteManager extends ActionSupport {
 	 *         factory
 	 */
 	public ListeCompteManager() {
-		System.out.println("In Constructor from ListeCompteManager class ");
+		logger.debug("In Constructor from ListeCompteManager class");
 		ApplicationContext context = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");

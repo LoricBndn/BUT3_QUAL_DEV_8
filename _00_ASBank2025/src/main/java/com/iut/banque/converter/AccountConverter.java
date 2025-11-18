@@ -3,6 +3,8 @@ package com.iut.banque.converter;
 import java.util.Map;
 
 import org.apache.struts2.util.StrutsTypeConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.conversion.TypeConversionException;
 
@@ -20,6 +22,8 @@ import com.iut.banque.modele.Compte;
  * Compte.
  */
 public class AccountConverter extends StrutsTypeConverter {
+
+	private static final Logger logger = LoggerFactory.getLogger(AccountConverter.class);
 
 	/**
 	 * DAO utilisée pour récuperer les objets correspondants à l'id passé en
@@ -40,19 +44,19 @@ public class AccountConverter extends StrutsTypeConverter {
 	 * @param dao
 	 */
 	public AccountConverter(IDao dao) {
-		System.out.println("=========================");
-		System.out.println("Création du convertisseur de compte");
+		logger.debug("=========================");
+		logger.debug("Création du convertisseur de compte");
 		AccountConverter.dao = dao;
-		//System.out.println("DAO injectée : " + dao);
+		//logger.debug("DAO injectée : {}", dao);
 	}
 
 	/**
 	 * 	Constructeur sans paramêtre pour le AccountConverter
 	 */
 	public AccountConverter() {
-		System.out.println("=========================");
-		System.out.println("Création du convertisseur de compte");
-		//System.out.println("DAO : " + dao);
+		logger.debug("=========================");
+		logger.debug("Création du convertisseur de compte");
+		//logger.debug("DAO : {}", dao);
 	}
 
 	/**

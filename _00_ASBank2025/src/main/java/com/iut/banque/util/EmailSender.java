@@ -1,6 +1,11 @@
 package com.iut.banque.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class EmailSender {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
 
     /**
      * Envoie un email de réinitialisation de mot de passe
@@ -18,33 +23,32 @@ public class EmailSender {
             String resetLink = "http://localhost:8081/_00_ASBank2025/resetPasswordWithToken?token=" + resetToken + "&userId=" + userId;
 
             // Simulation d'envoi d'email (affichage dans la console)
-            System.out.println("========================================");
-            System.out.println("SIMULATION D'ENVOI D'EMAIL");
-            System.out.println("========================================");
-            System.out.println("À : " + toEmail);
-            System.out.println("Sujet : Réinitialisation de votre mot de passe - IUT Bank");
-            System.out.println("----------------------------------------");
-            System.out.println("Bonjour,");
-            System.out.println("");
-            System.out.println("Vous avez demandé à réinitialiser votre mot de passe.");
-            System.out.println("");
-            System.out.println("Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe :");
-            System.out.println(resetLink);
-            System.out.println("");
-            System.out.println("Ce lien est valable pendant 1 heure.");
-            System.out.println("");
-            System.out.println("Si vous n'avez pas demandé cette réinitialisation,");
-            System.out.println("ignorez simplement cet email.");
-            System.out.println("");
-            System.out.println("Cordialement,");
-            System.out.println("L'équipe IUT Bank");
-            System.out.println("========================================");
+            logger.info("========================================");
+            logger.info("SIMULATION D'ENVOI D'EMAIL");
+            logger.info("========================================");
+            logger.info("À : {}", toEmail);
+            logger.info("Sujet : Réinitialisation de votre mot de passe - IUT Bank");
+            logger.info("----------------------------------------");
+            logger.info("Bonjour,");
+            logger.info("");
+            logger.info("Vous avez demandé à réinitialiser votre mot de passe.");
+            logger.info("");
+            logger.info("Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe :");
+            logger.info("{}", resetLink);
+            logger.info("");
+            logger.info("Ce lien est valable pendant 1 heure.");
+            logger.info("");
+            logger.info("Si vous n'avez pas demandé cette réinitialisation,");
+            logger.info("ignorez simplement cet email.");
+            logger.info("");
+            logger.info("Cordialement,");
+            logger.info("L'équipe IUT Bank");
+            logger.info("========================================");
 
             return true;
 
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Erreur lors de l'envoi de l'email : " + e.getMessage());
+            logger.error("Erreur lors de l'envoi de l'email", e);
             return false;
         }
     }

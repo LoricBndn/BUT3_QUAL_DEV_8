@@ -1,5 +1,8 @@
 package com.iut.banque.facade;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.iut.banque.constants.LoginConstants;
 import com.iut.banque.interfaces.IDao;
 import com.iut.banque.modele.Gestionnaire;
@@ -8,6 +11,8 @@ import com.iut.banque.modele.Utilisateur;
 import com.iut.banque.cryptage.PasswordHasher;
 
 public class LoginManager {
+
+	private static final Logger logger = LoggerFactory.getLogger(LoginManager.class);
 
 	private IDao dao;
 	private Utilisateur user;
@@ -41,8 +46,8 @@ public class LoginManager {
     public int tryLogin(String userCde, String userPwd) {
         // Récupérer compte utilisateur en fonction du userCde
         user = dao.getUserById(userCde);
-        System.out.println(userCde);
-        System.out.println(user.toString());
+        logger.debug("Tentative de connexion pour l'utilisateur : {}", userCde);
+        logger.debug("Utilisateur trouvé : {}", user);
         if (user == null) return LoginConstants.LOGIN_FAILED;
 
         // Mdp en bdd
@@ -117,25 +122,25 @@ public class LoginManager {
      * @return
      */
     public boolean resetPassword(String userCde, String oldPassword, String newPassword) {
-        System.out.println("\nIn resetPassword method from LoginManager class");
-        System.out.println("userCde: " + userCde);
-        System.out.println("User : "  + user);
+        logger.debug("In resetPassword method from LoginManager class");
+        logger.debug("userCde: {}", userCde);
+        logger.debug("User : {}", user);
 
-        System.out.println(dao.getUserById(userCde));
+        logger.debug("Récupération utilisateur : {}", dao.getUserById(userCde));
         user = dao.getUserById(userCde);
 
-        System.out.println("user: " + user);
+        logger.debug("user: {}", user);
 
         if (user == null) return false;
 
         // Vérifier l'ancien mot de passe
-        System.out.println("Verif ancien pwd");
+        logger.debug("Vérification ancien mot de passe");
         if (!PasswordHasher.verifyPassword(oldPassword, user.getUserPwd())) {
             return false;
         }
 
         // Mettre à jour avec le nouveau mot de passe
-        System.out.println("MAJ pwd");
+        logger.debug("Mise à jour du mot de passe");
         String hashed = PasswordHasher.hashPassword(newPassword);
         user.setUserPwd(hashed);
         dao.updateUser(user);

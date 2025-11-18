@@ -1,6 +1,8 @@
 package com.iut.banque.controller;
 
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -12,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ForgotPassword extends ActionSupport {
 
+    private static final Logger logger = LoggerFactory.getLogger(ForgotPassword.class);
     private static final long serialVersionUID = 1L;
     private String userCde;
     private String message;
@@ -19,7 +22,7 @@ public class ForgotPassword extends ActionSupport {
     private LoginManager loginManager;
 
     public ForgotPassword() {
-        System.out.println("In constructor from ForgotPassword class");
+        logger.debug("In constructor from ForgotPassword class");
         ApplicationContext context = WebApplicationContextUtils
                 .getRequiredWebApplicationContext(ServletActionContext.getServletContext());
         this.loginManager = (LoginManager) context.getBean("loginManager");
@@ -61,7 +64,7 @@ public class ForgotPassword extends ActionSupport {
      * Traite la demande de réinitialisation de mot de passe
      */
     public String requestReset() {
-        System.out.println("Demande de réinitialisation pour l'utilisateur : " + userCde);
+        logger.info("Demande de réinitialisation pour l'utilisateur : {}", userCde);
 
         try {
             // Récupérer l'utilisateur

@@ -5,7 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ResetTokenManager {
+
+    private static final Logger logger = LoggerFactory.getLogger(ResetTokenManager.class);
 
     private static final Map<String, TokenInfo> tokens = new HashMap<String, TokenInfo>();
     private static final long TOKEN_VALIDITY_DURATION = 3600000; // 1 heure en millisecondes
@@ -41,7 +46,7 @@ public class ResetTokenManager {
         long expirationTime = System.currentTimeMillis() + TOKEN_VALIDITY_DURATION;
         tokens.put(token, new TokenInfo(userId, expirationTime));
 
-        System.out.println("Token généré pour l'utilisateur " + userId + ": " + token);
+        logger.info("Token généré pour l'utilisateur {} : {}", userId, token);
         return token;
     }
 
@@ -54,17 +59,17 @@ public class ResetTokenManager {
         TokenInfo info = tokens.get(token);
 
         if (info == null) {
-            System.out.println("Token non trouvé : " + token);
+            logger.warn("Token non trouvé : {}", token);
             return null;
         }
 
         if (System.currentTimeMillis() > info.expirationTime) {
-            System.out.println("Token expiré pour l'utilisateur : " + info.userId);
+            logger.warn("Token expiré pour l'utilisateur : {}", info.userId);
             tokens.remove(token);
             return null;
         }
 
-        System.out.println("Token valide pour l'utilisateur : " + info.userId);
+        logger.info("Token valide pour l'utilisateur : {}", info.userId);
         return info.userId;
     }
 
@@ -74,7 +79,7 @@ public class ResetTokenManager {
      */
     public static void invalidateToken(String token) {
         tokens.remove(token);
-        System.out.println("Token invalidé : " + token);
+        logger.info("Token invalidé : {}", token);
     }
 
     /**

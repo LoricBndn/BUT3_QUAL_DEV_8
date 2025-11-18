@@ -1,6 +1,8 @@
 package com.iut.banque.controller;
 
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -15,6 +17,7 @@ import com.iut.banque.modele.Compte;
 
 public class CreerCompte extends ActionSupport {
 
+	private static final Logger logger = LoggerFactory.getLogger(CreerCompte.class);
 	private static final long serialVersionUID = 1L;
 	private String numeroCompte;
 	private boolean avecDecouvert;
@@ -78,7 +81,7 @@ public class CreerCompte extends ActionSupport {
 	 * Constructeur sans paramêtre de CreerCompte
 	 */
 	public CreerCompte() {
-		System.out.println("In Constructor from CreerCompte class ");
+		logger.debug("In Constructor from CreerCompte class");
 		ApplicationContext context = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");

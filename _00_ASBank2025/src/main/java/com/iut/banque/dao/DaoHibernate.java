@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iut.banque.exceptions.IllegalFormatException;
@@ -32,11 +34,13 @@ import com.iut.banque.modele.Utilisateur;
 @Transactional
 public class DaoHibernate implements IDao {
 
+	private static final Logger logger = LoggerFactory.getLogger(DaoHibernate.class);
+
 	private SessionFactory sessionFactory;
 
 	public DaoHibernate() {
-		System.out.println("==================");
-		System.out.println("Création de la Dao");
+		logger.debug("==================");
+		logger.debug("Création de la Dao");
 	}
 
 	/**
@@ -251,7 +255,7 @@ public class DaoHibernate implements IDao {
 	 */
 	@Override
 	public void disconnect() {
-		System.out.println("Déconnexion de la DAO.");
+		logger.info("Déconnexion de la DAO.");
 	}
 
 }
