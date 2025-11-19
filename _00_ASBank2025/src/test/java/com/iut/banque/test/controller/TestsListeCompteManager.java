@@ -214,7 +214,7 @@ public class TestsListeCompteManager {
 	public void testDeleteAccountAvecSoldeNonNulRetourneNonemptyaccount() {
 		Compte compte = banqueFacade.getCompte("CADNV00000");
 		assertNotNull("Le compte CADNV00000 devrait exister", compte);
-        assertNotEquals ("Le solde devrait être différent de 0", compte.getSolde() != 0);
+		assertNotEquals("Le solde devrait être différent de 0", 0.0, compte.getSolde(), 0.01);
 
 		listeCompteManager.setCompte(compte);
 		String result = listeCompteManager.deleteAccount();
@@ -227,7 +227,7 @@ public class TestsListeCompteManager {
 	public void testDeleteAccountSansDecouvertAvecSoldeNonNulRetourneNonemptyaccount() {
 		Compte compte = banqueFacade.getCompte("CSDNV00000");
 		assertNotNull("Le compte CSDNV00000 devrait exister", compte);
-        assertNotEquals("Le solde devrait être différent de 0", compte.getSolde() != 0);
+		assertNotEquals("Le solde devrait être différent de 0", 0.0, compte.getSolde(), 0.01);
 
 		listeCompteManager.setCompte(compte);
 		String result = listeCompteManager.deleteAccount();
