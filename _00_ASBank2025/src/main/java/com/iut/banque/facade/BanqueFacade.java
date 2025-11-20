@@ -187,7 +187,6 @@ public class BanqueFacade {
 			throws TechnicalException, IllegalArgumentException, IllegalFormatException {
 		if (loginManager.getConnectedUser() instanceof Gestionnaire) {
 			banqueManager.createManager(userId, userPwd, nom, prenom, adresse, male);
-			;
 		}
 	}
 
