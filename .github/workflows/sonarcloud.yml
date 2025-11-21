@@ -39,7 +39,17 @@ jobs:
   build:
     name: Build and Analyze
     runs-on: ubuntu-latest
-    
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: but3_qual_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4
@@ -59,6 +69,17 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.runner.os }}-sonar
+
+      - name: Initialisation de la BDD
+        run: |
+          sudo apt-get update && sudo apt-get install -y mysql-client
+          # On attend que le service soit prêt (sécurité supplémentaire)
+          until mysql -h 127.0.0.1 -P 3306 -u root -e 'status' &> /dev/null; do
+            echo "Waiting for MySQL..."
+            sleep 1
+          done
+          # On importe le script SQL de test situé dans votre dossier
+          mysql -h 127.0.0.1 -P 3306 -u root but3_qual_test < _00_ASBank2025/script/02-init-test.sql
 
       - name: Build et Analyse Sonar
         env:
