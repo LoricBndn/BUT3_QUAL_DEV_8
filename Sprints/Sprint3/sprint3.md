@@ -12,7 +12,7 @@
 
 ### Début de sprint
 
-![SonarCloud - Début](<sonarcloud_capture_(07-11-2025).png>)
+![SonarCloud - Début](<sonarcloud_capture_(09-11-2025).png>)
 
 ### Fin de sprint
 
