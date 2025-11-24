@@ -1,71 +1,167 @@
-body
-{
-	font-family : 'Segoe UI', Arial, sans-serif;
-	text-align : center;
+/* Custom CSS overrides for Bootstrap + Zephyr theme */
+/* REMOVE ALL BLUE BORDERS */
+
+/* Body defaults - minimal overrides since Bootstrap handles most */
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
-h1
-{
-	text-align : center;
-	border : 5px outset blue;
-	margin-left: 20px;
-	margin-right: 20px;
+
+/* Remove ALL blue borders and backgrounds from ALL elements */
+* {
+	border-color: #dee2e6 !important;
 }
-table
-{
-	margin-right: auto;
-	margin-left: auto;
+
+/* H1, H2, H3, H4, H5, H6 - remove all borders and set color to black */
+h1, h2, h3, h4, h5, h6 {
+	padding: 1rem;
+	border: none !important;
+	color: #000000 !important;
+	background: transparent !important;
+	outline: none !important;
 }
-td
-{
-	border : 1px solid black;
-	text-align: center
+
+/* Remove borders from cards */
+.card {
+	border: 1px solid #e0e0e0 !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+	background: white !important;
 }
-table
-{
-	padding : 5px;
-	text-align: center;
-	border: 3px outset blue;
+
+.card-header {
+	border: none !important;
+	border-bottom: 1px solid #e0e0e0 !important;
+	background: #f8f9fa !important;
 }
-table>thead
-{
-	background-color: rgb(0,255,255);
+
+.card-body {
+	border: none !important;
 }
-table>thead>tr>td
-{
-	padding: 5px;
-	border: 5px double blue;
+
+/* Remove blue borders from forms and inputs */
+.form-control, .form-select, input, textarea, select {
+	border: 1px solid #ced4da !important;
+	outline: none !important;
+}
+
+.form-control:focus, .form-select:focus, input:focus, textarea:focus, select:focus {
+	border-color: #adb5bd !important;
+	box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25) !important;
+	outline: none !important;
+}
+
+/* Remove blue borders from tables */
+table {
+	border: 1px solid #dee2e6 !important;
+}
+
+table, th, td, thead, tbody, tr {
+	border-color: #dee2e6 !important;
+}
+
+.table-bordered {
+	border: 1px solid #dee2e6 !important;
+}
+
+.table-bordered th,
+.table-bordered td {
+	border: 1px solid #dee2e6 !important;
+}
+
+/* Remove borders from table headers */
+thead, .table-primary, .table-light {
+	background-color: #f8f9fa !important;
+	border: none !important;
+}
+
+/* Buttons - remove all borders */
+.btn {
+	border: none !important;
+	outline: none !important;
+}
+
+.btn:focus, .btn:active {
+	box-shadow: none !important;
+	outline: none !important;
+}
+
+/* Alerts - remove blue borders */
+.alert {
+	border: 1px solid #dee2e6 !important;
+}
+
+.alert-info {
+	background-color: #e7f3ff !important;
+	border-color: #cce5ff !important;
+	color: #004085 !important;
+}
+
+/* Badges - remove borders */
+.badge {
+	border: none !important;
+}
+
+/* List groups */
+.list-group-item {
+	border: 1px solid #dee2e6 !important;
+}
+
+/* Footer positioning for sticky footer */
+footer.footer {
+	margin-top: auto;
+	border-top: 1px solid #dee2e6 !important;
+}
+
+/* Legacy class support */
+.success {
+	background-color: #d4edda;
+	color: #155724;
+	padding: 0.75rem 1.25rem;
+	border: 1px solid #c3e6cb !important;
+	border-radius: 0.25rem;
+}
+
+.failure {
+	background-color: #f8d7da;
+	color: #721c24;
+	padding: 0.75rem 1.25rem;
+	border: 1px solid #f5c6cb !important;
+	border-radius: 0.25rem;
+}
+
+/* Custom utility classes */
+.soldeNegatif {
 	font-weight: bold;
-	font-size: 150%;
+	color: #dc3545;
 }
-table>tbody>tr>td
-{
-	padding:5px;
-	border: 1px solid blue;
+
+/* Positioning utilities */
+.btnLogout {
+	position: absolute;
+	top: 90px;
+	left: 30px;
 }
-.success
-{
-	background-color: rgb(0,255,0);
+
+.btnBack {
+	margin-bottom: 1rem;
 }
-.failure
-{
-	background-color:red;
-	color:white;
+
+/* Remove any blue outline or shadow */
+*:focus {
+	outline: none !important;
+	box-shadow: none !important;
 }
-.soldeNegatif
-{
-	font-weight: bold;
-	color: red;
+
+/* Override any Bootstrap primary color borders */
+.border-primary {
+	border-color: #dee2e6 !important;
 }
-footer
-{
-	margin-top: 10px;
-	font-style: italic;
-	border: 1px solid black;
-	box-shadow: 3px 3px 5px #888888;
+
+.bg-primary {
+	border: none !important;
 }
-.btnLogout
-{
-	position:absolute;
-	top : 90px;
-	left : 30px;
+
+.text-primary {
+	border: none !important;
 }

@@ -226,7 +226,7 @@ public class CreerUtilisateur extends ActionSupport {
             this.result = error;
             return error;
         } catch (IllegalFormatException e) {
-            this.message = "Format du numéro de client incorrect.";
+            this.message = "Format du numéro de client incorrect." + e.getMessage();
             this.result = error;
             return error;
         }
