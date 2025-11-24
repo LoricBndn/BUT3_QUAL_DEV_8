@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `Utilisateur` (
 INSERT INTO `Utilisateur` (`userId`, `nom`, `prenom`, `adresse`, `userPwd`, `male`, `type`, `numClient`, `email`) VALUES
                                                                                                                       ('a', 'a', 'a', 'a', 'a', b'1', 'MANAGER', NULL, ''),
                                                                                                                       ('admin', 'Smith', 'Joe', '123, grande rue, Metz', 'adminpass', b'1', 'MANAGER', '', 'admin@asbank.com'),
-                                                                                                                      ('client1', 'client1', 'Jane', '45, grand boulevard, Brest', 'clientpass1', b'1', 'CLIENT', '123456789', 'client1@asbank.com'),
+                                                                                                                      ('client1', 'client1', 'Jane', '45, grand boulevard, Brest', 'clientpass1', b'1', 'CLIENT', '123456789', 'demexig929@feralrex.com'),
                                                                                                                       ('client2', 'client2', 'Jane', '45, grand boulevard, Brest', 'clientpass2', b'1', 'CLIENT', '123456788','');
 
 --
