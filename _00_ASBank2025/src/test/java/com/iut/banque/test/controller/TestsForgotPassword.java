@@ -164,33 +164,40 @@ public class TestsForgotPassword {
     @Test
     public void testRequestResetAvecUtilisateurSansEmail() {
         // Tester avec un utilisateur qui n'a pas d'email
-        // Note: Cela dépend de votre jeu de données de test
+        // j.doe1 a un email vide dans les données de test
         forgotPassword.setUserCde("j.doe1");
         String result = forgotPassword.requestReset();
 
-        // Si l'utilisateur n'a pas d'email, le résultat devrait être NOEMAIL
-        // Sinon, il devrait être SUCCESS ou error selon que l'email a été envoyé
-        assertTrue("Le résultat devrait être SUCCESS, error ou NOEMAIL",
-            result.equals("SUCCESS") || result.equals("error") || result.equals("NOEMAIL"));
+        // L'utilisateur j.doe1 n'a pas d'email, le résultat devrait être NOEMAIL
+        assertEquals("Le résultat devrait être NOEMAIL car j.doe1 n'a pas d'email", "NOEMAIL", result);
+        assertTrue("L'erreur devrait être true", forgotPassword.isError());
+        assertNotNull("Le message ne devrait pas être null", forgotPassword.getMessage());
+        assertTrue("Le message devrait mentionner l'absence d'email",
+            forgotPassword.getMessage().toLowerCase().contains("email"));
     }
 
     /**
      * Tests de la méthode requestReset() - Cas de succès
      */
     @Test
-    public void testRequestResetAvecUtilisateurValide() {
+    public void testRequestResetAvecUtilisateurValideAvecEmail() {
         // Tester avec un utilisateur valide qui a un email
-        forgotPassword.setUserCde("j.doe1");
+        // admin a un email dans les données de test
+        forgotPassword.setUserCde("admin");
         String result = forgotPassword.requestReset();
 
-        // Le résultat dépend de si l'utilisateur a un email ou non
-        assertTrue("Le résultat devrait être SUCCESS, error ou NOEMAIL",
-            result.equals("SUCCESS") || result.equals("error") || result.equals("NOEMAIL"));
+        // Le résultat devrait être SUCCESS ou ERROR selon la configuration SMTP
+        // En environnement de test sans configuration SMTP, ce sera ERROR
+        assertTrue("Le résultat devrait être SUCCESS ou error",
+            result.equals("SUCCESS") || result.equals("error"));
 
         if (result.equals("SUCCESS")) {
             assertFalse("L'erreur devrait être false", forgotPassword.isError());
             assertTrue("Le message devrait contenir 'email'",
                 forgotPassword.getMessage().toLowerCase().contains("email"));
+        } else {
+            assertTrue("L'erreur devrait être true", forgotPassword.isError());
+            assertNotNull("Le message d'erreur ne devrait pas être null", forgotPassword.getMessage());
         }
     }
 
@@ -199,9 +206,12 @@ public class TestsForgotPassword {
         forgotPassword.setUserCde("  j.doe1  ");
         String result = forgotPassword.requestReset();
 
-        // Le résultat dépend de la gestion du trim dans la méthode
-        assertTrue("Le résultat devrait être SUCCESS, error ou NOEMAIL",
-            result.equals("SUCCESS") || result.equals("error") || result.equals("NOEMAIL"));
+        // Avec des espaces, l'utilisateur n'est pas trouvé (pas de trim)
+        // donc le résultat devrait être ERROR
+        assertEquals("Le résultat devrait être ERROR car l'utilisateur avec espaces n'est pas trouvé", "error", result);
+        assertTrue("L'erreur devrait être true", forgotPassword.isError());
+        assertEquals("Le message devrait indiquer que l'utilisateur n'est pas trouvé",
+            "Utilisateur non trouvé.", forgotPassword.getMessage());
     }
 
     /**
@@ -268,8 +278,9 @@ public class TestsForgotPassword {
         forgotPassword.setUserCde("j.doe1");
         String result = forgotPassword.requestReset();
 
-        assertTrue("Le résultat devrait être SUCCESS, error ou NOEMAIL",
-            result.equals("SUCCESS") || result.equals("error") || result.equals("NOEMAIL"));
+        // j.doe1 n'a pas d'email, donc le résultat devrait être NOEMAIL
+        assertEquals("Le résultat devrait être NOEMAIL car j.doe1 n'a pas d'email", "NOEMAIL", result);
+        assertTrue("L'erreur devrait être true", forgotPassword.isError());
     }
 
     @Test
@@ -278,8 +289,11 @@ public class TestsForgotPassword {
         String result = forgotPassword.requestReset();
 
         // Le résultat dépend de la sensibilité à la casse de la base de données
-        assertTrue("Le résultat devrait être SUCCESS, error ou NOEMAIL",
-            result.equals("SUCCESS") || result.equals("error") || result.equals("NOEMAIL"));
+        // Si l'utilisateur est trouvé (J.DOE1 = j.doe1), il n'a pas d'email donc NOEMAIL
+        // Sinon, l'utilisateur n'est pas trouvé donc ERROR
+        assertTrue("Le résultat devrait être error ou NOEMAIL",
+            result.equals("error") || result.equals("NOEMAIL"));
+        assertTrue("L'erreur devrait être true", forgotPassword.isError());
     }
 
     /**
@@ -299,12 +313,15 @@ public class TestsForgotPassword {
 
     @Test
     public void testMessageSuccesCoherentAvecStatutSucces() {
-        forgotPassword.setUserCde("j.doe1");
+        // Utiliser admin qui a un email pour tester le cas de succès potentiel
+        forgotPassword.setUserCde("admin");
         String result = forgotPassword.requestReset();
 
         if (result.equals("SUCCESS")) {
             assertFalse("L'erreur devrait être false en cas de succès", forgotPassword.isError());
             assertNotNull("Le message de succès ne devrait pas être null", forgotPassword.getMessage());
+            assertTrue("Le message de succès devrait contenir 'email'",
+                forgotPassword.getMessage().toLowerCase().contains("email"));
         }
     }
 
@@ -321,5 +338,71 @@ public class TestsForgotPassword {
         assertEquals("Le résultat devrait être ERROR en cas d'exception", "error", result);
         assertTrue("L'erreur devrait être true", forgotPassword.isError());
         assertNotNull("Le message ne devrait pas être null", forgotPassword.getMessage());
+    }
+
+    /**
+     * Tests spécifiques pour les nouvelles fonctionnalités (après merge)
+     */
+    @Test
+    public void testRequestResetRetourneNOEMAILQuandEmailVide() {
+        // Tester explicitement le cas où l'email est vide
+        forgotPassword.setUserCde("j.doe2");  // j.doe2 a aussi un email vide
+        String result = forgotPassword.requestReset();
+
+        assertEquals("Le résultat devrait être NOEMAIL", "NOEMAIL", result);
+        assertTrue("L'erreur devrait être true", forgotPassword.isError());
+        assertTrue("Le message devrait mentionner le conseiller",
+            forgotPassword.getMessage().toLowerCase().contains("conseiller"));
+    }
+
+    @Test
+    public void testRequestResetMessageContientInfosUtiles() {
+        // Vérifier que les messages d'erreur sont informatifs
+        forgotPassword.setUserCde("j.doe1");
+        forgotPassword.requestReset();
+
+        String message = forgotPassword.getMessage();
+        assertNotNull("Le message ne devrait pas être null", message);
+        assertFalse("Le message ne devrait pas être vide", message.isEmpty());
+        // Le message pour NOEMAIL devrait expliquer comment résoudre le problème
+        assertTrue("Le message devrait indiquer comment associer un email",
+            message.contains("conseiller") || message.contains("associer"));
+    }
+
+    @Test
+    public void testRequestResetAvecUtilisateurAdminAvecEmail() {
+        // Test spécifique pour admin qui a un email configuré
+        forgotPassword.setUserCde("admin");
+        String result = forgotPassword.requestReset();
+
+        // Le résultat ne devrait PAS être NOEMAIL car admin a un email
+        assertFalse("Le résultat ne devrait pas être NOEMAIL pour admin", result.equals("NOEMAIL"));
+
+        // Il devrait être SUCCESS ou ERROR selon la config SMTP
+        assertTrue("Le résultat devrait être SUCCESS ou error",
+            result.equals("SUCCESS") || result.equals("error"));
+
+        // Dans tous les cas, un message devrait être présent
+        assertNotNull("Un message devrait être présent", forgotPassword.getMessage());
+        assertFalse("Le message ne devrait pas être vide", forgotPassword.getMessage().isEmpty());
+    }
+
+    @Test
+    public void testRequestResetCoherenceEntreResultatEtMessage() {
+        // Test pour vérifier la cohérence entre le résultat et le message
+        forgotPassword.setUserCde("j.doe1");
+        String result = forgotPassword.requestReset();
+
+        if (result.equals("NOEMAIL")) {
+            assertTrue("Le message devrait mentionner l'email",
+                forgotPassword.getMessage().toLowerCase().contains("email"));
+        } else if (result.equals("SUCCESS")) {
+            assertTrue("Le message devrait mentionner l'envoi",
+                forgotPassword.getMessage().toLowerCase().contains("envoyé") ||
+                forgotPassword.getMessage().toLowerCase().contains("email"));
+        } else if (result.equals("error")) {
+            assertNotNull("Le message d'erreur ne devrait pas être null",
+                forgotPassword.getMessage());
+        }
     }
 }
