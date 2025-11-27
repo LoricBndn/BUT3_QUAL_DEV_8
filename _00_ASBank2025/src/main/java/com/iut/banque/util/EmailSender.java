@@ -7,11 +7,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Classe utilitaire pour l'envoi d'emails
  */
 public class EmailSender {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
 
     /**
      * Envoie un email de réinitialisation de mot de passe
@@ -25,8 +29,8 @@ public class EmailSender {
         try {
             // Vérification des paramètres de configuration
             if (EmailConfig.SMTP_USERNAME == null || EmailConfig.SMTP_PASSWORD == null) {
-                System.err.println("ERREUR : Les identifiants SMTP ne sont pas configurés.");
-                System.err.println("Veuillez définir les variables d'environnement EMAIL_USERNAME et EMAIL_PASSWORD");
+                logger.error("ERREUR : Les identifiants SMTP ne sont pas configurés.");
+                logger.error("Veuillez définir les variables d'environnement EMAIL_USERNAME et EMAIL_PASSWORD");
                 return false;
             }
 
@@ -85,27 +89,26 @@ public class EmailSender {
             // Envoi du message
             Transport.send(message);
 
-            System.out.println("========================================");
-            System.out.println("EMAIL ENVOYÉ AVEC SUCCÈS");
-            System.out.println("========================================");
-            System.out.println("À : " + toEmail);
-            System.out.println("Sujet : Réinitialisation de votre mot de passe - IUT Bank");
-            System.out.println("========================================");
+            logger.info("========================================");
+            logger.info("EMAIL ENVOYÉ AVEC SUCCÈS");
+            logger.info("========================================");
+            logger.info("À : {}", toEmail);
+            logger.info("Sujet : Réinitialisation de votre mot de passe - IUT Bank");
+            logger.info("========================================");
 
             return true;
 
         } catch (MessagingException e) {
-            System.err.println("========================================");
-            System.err.println("ERREUR LORS DE L'ENVOI DE L'EMAIL");
-            System.err.println("========================================");
-            System.err.println("Type d'erreur : " + e.getClass().getSimpleName());
-            System.err.println("Message : " + e.getMessage());
-            e.printStackTrace();
-            System.err.println("========================================");
+            logger.error("========================================");
+            logger.error("ERREUR LORS DE L'ENVOI DE L'EMAIL");
+            logger.error("========================================");
+            logger.error("Type d'erreur : {}", e.getClass().getSimpleName());
+            logger.error("Message : {}", e.getMessage());
+            logger.error("Stack trace:", e);
+            logger.error("========================================");
             return false;
         } catch (Exception e) {
-            System.err.println("Erreur inattendue lors de l'envoi de l'email : " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Erreur inattendue lors de l'envoi de l'email : {}", e.getMessage(), e);
             return false;
         }
     }
@@ -166,7 +169,7 @@ public class EmailSender {
     public static boolean sendTestEmail(String toEmail) {
         try {
             if (EmailConfig.SMTP_USERNAME == null || EmailConfig.SMTP_PASSWORD == null) {
-                System.err.println("ERREUR : Les identifiants SMTP ne sont pas configurés.");
+                logger.error("ERREUR : Les identifiants SMTP ne sont pas configurés.");
                 return false;
             }
 
@@ -205,12 +208,11 @@ public class EmailSender {
 
             Transport.send(message);
 
-            System.out.println("Email de test envoyé avec succès à " + toEmail);
+            logger.info("Email de test envoyé avec succès à {}", toEmail);
             return true;
 
         } catch (Exception e) {
-            System.err.println("Erreur lors de l'envoi de l'email de test : " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Erreur lors de l'envoi de l'email de test : {}", e.getMessage(), e);
             return false;
         }
     }
