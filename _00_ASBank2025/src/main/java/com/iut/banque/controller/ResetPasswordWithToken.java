@@ -22,7 +22,7 @@ public class ResetPasswordWithToken extends ActionSupport {
     private String confirmPassword;
     private String message;
     private boolean error;
-    private final LoginManager loginManager;
+    private final transient LoginManager loginManager;
 
     public ResetPasswordWithToken() {
         logger.debug("In constructor from ResetPasswordWithToken class");

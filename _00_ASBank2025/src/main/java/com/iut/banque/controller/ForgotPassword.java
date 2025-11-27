@@ -19,7 +19,7 @@ public class ForgotPassword extends ActionSupport {
     private String userCde;
     private String message;
     private boolean error;
-    private LoginManager loginManager;
+    private transient LoginManager loginManager;
 
     public ForgotPassword() {
         logger.debug("In constructor from ForgotPassword class");
