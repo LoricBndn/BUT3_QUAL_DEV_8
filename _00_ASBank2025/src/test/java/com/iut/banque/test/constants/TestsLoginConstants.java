@@ -203,8 +203,8 @@ public class TestsLoginConstants {
             }
         }
 
-        assertEquals("La classe devrait avoir exactement 4 constantes publiques",
-            4, constantCount);
+        assertEquals("La classe devrait avoir exactement 5 constantes publiques",
+            5, constantCount);
     }
 
     @Test

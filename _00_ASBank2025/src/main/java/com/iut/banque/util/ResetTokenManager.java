@@ -46,6 +46,7 @@ public class ResetTokenManager {
     }
 
     public static String validateToken(String token) {
+        if (token == null) return null;
         if (instance != null && instance.dao != null) {
             String userId = instance.dao.getResetTokenUserId(token);
             if (userId == null) {
