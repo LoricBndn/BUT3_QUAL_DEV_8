@@ -29,7 +29,7 @@ public class CompteSansDecouvert extends Compte {
 	 * 
 	 * Nécessaire pour Hibernate.
 	 * 
-	 * Il est préférable d'utiliser une classe implémentant IDao pour crér un
+	 * Il est préférable d'utiliser une classe implémentant IDao pour créer un
 	 * objet au lieu d'appeler ce constructeur.
 	 */
 	public CompteSansDecouvert() {

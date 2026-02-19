@@ -90,7 +90,6 @@ public class DaoHibernate implements IDao {
 		}
 
 		compte = new CompteSansDecouvert(numeroCompte, solde, client);
-		session.save(compte);
 		client.addAccount(compte);
 		session.save(compte);
 
@@ -228,10 +227,10 @@ public class DaoHibernate implements IDao {
 	public Map<String, Client> getAllClients() {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		List<Object> res = session.createCriteria(Client.class).list();
+		List<Client> res = session.createQuery("FROM Client").list();
 		Map<String, Client> ret = new HashMap<String, Client>();
-		for (Object client : res) {
-			ret.put(((Client) client).getUserId(), (Client) client);
+		for (Client client : res) {
+			ret.put(client.getUserId(), client);
 		}
 		return ret;
 	}
@@ -243,10 +242,10 @@ public class DaoHibernate implements IDao {
 	public Map<String, Gestionnaire> getAllGestionnaires() {
 		Session session = sessionFactory.getCurrentSession();
 		@SuppressWarnings("unchecked")
-		List<Object> res = session.createCriteria(Gestionnaire.class).list();
+		List<Gestionnaire> res = session.createQuery("FROM Gestionnaire").list();
 		Map<String, Gestionnaire> ret = new HashMap<String, Gestionnaire>();
-		for (Object gestionnaire : res) {
-			ret.put(((Gestionnaire) gestionnaire).getUserId(), (Gestionnaire) gestionnaire);
+		for (Gestionnaire gestionnaire : res) {
+			ret.put(gestionnaire.getUserId(), gestionnaire);
 		}
 		return ret;
 	}
