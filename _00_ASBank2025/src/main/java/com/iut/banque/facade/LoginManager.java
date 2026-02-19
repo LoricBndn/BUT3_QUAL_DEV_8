@@ -9,6 +9,7 @@ import com.iut.banque.modele.Gestionnaire;
 import com.iut.banque.modele.Utilisateur;
 
 import com.iut.banque.cryptage.PasswordHasher;
+import com.iut.banque.util.LoginRateLimiter;
 
 public class LoginManager {
 
@@ -44,32 +45,34 @@ public class LoginManager {
 	 *         l'état du login
 	 */
     public int tryLogin(String userCde, String userPwd) {
-        // Récupérer compte utilisateur en fonction du userCde
-        user = dao.getUserById(userCde);
         logger.debug("Tentative de connexion pour l'utilisateur : {}", userCde);
+
+        if (LoginRateLimiter.isBlocked(userCde)) {
+            return LoginConstants.TOO_MANY_ATTEMPTS;
+        }
+
+        user = dao.getUserById(userCde);
         logger.debug("Utilisateur trouvé : {}", user);
-        if (user == null) return LoginConstants.LOGIN_FAILED;
+        if (user == null) {
+            LoginRateLimiter.recordFailedAttempt(userCde);
+            return LoginConstants.LOGIN_FAILED;
+        }
 
-        // Mdp en bdd
         String pwdBdd = user.getUserPwd();
-
         boolean authenticated = false;
 
-        // si mdp pas hash (en clair dans la pdd)
+        // Mot de passe en clair (anciens comptes) → on le hache immédiatement
         if (userPwd.equals(pwdBdd)) {
             authenticated = true;
-
-            // hash mdp
             String newHash = PasswordHasher.hashPassword(userPwd);
             user.setUserPwd(newHash);
             dao.updateUser(user);
-        }
-        // sinon si mdp en bdd déjà hash
-        else if (PasswordHasher.verifyPassword(userPwd, pwdBdd)) {
+        } else if (PasswordHasher.verifyPassword(userPwd, pwdBdd)) {
             authenticated = true;
         }
 
         if (authenticated) {
+            LoginRateLimiter.resetAttempts(userCde);
             if (user instanceof Gestionnaire) {
                 return LoginConstants.MANAGER_IS_CONNECTED;
             } else {
@@ -77,6 +80,7 @@ public class LoginManager {
             }
         }
 
+        LoginRateLimiter.recordFailedAttempt(userCde);
         return LoginConstants.LOGIN_FAILED;
     }
 

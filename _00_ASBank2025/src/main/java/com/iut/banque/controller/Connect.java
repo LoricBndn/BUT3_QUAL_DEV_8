@@ -69,6 +69,9 @@ public class Connect extends ActionSupport {
 		case LoginConstants.MANAGER_IS_CONNECTED:
 			logger.info("Manager logged in");
 			return "SUCCESSMANAGER";
+		case LoginConstants.TOO_MANY_ATTEMPTS:
+			logger.warn("Login blocked: too many failed attempts for {}", userCde);
+			return "BLOCKED";
 		case LoginConstants.LOGIN_FAILED:
 			logger.warn("Login failed");
 			return error;
