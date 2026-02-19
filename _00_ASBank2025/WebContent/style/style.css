@@ -51,11 +51,6 @@ h1, h2, h3, h4, h5, h6 {
 	outline: none !important;
 }
 
-/* Remove blue borders from tables */
-table {
-	border: 1px solid #dee2e6 !important;
-}
-
 table, th, td, thead, tbody, tr {
 	border-color: #dee2e6 !important;
 }
@@ -164,4 +159,9 @@ footer.footer {
 
 .text-primary {
 	border: none !important;
+}
+
+form.text-center {
+    display: flex;
+    justify-content: center;
 }
