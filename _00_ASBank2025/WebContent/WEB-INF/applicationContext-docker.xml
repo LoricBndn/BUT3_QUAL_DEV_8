@@ -65,6 +65,10 @@
 		<property name="dao" ref="daoHibernate" />
 	</bean>
 
+	<bean id="resetTokenManager" class="com.iut.banque.util.ResetTokenManager">
+		<property name="dao" ref="daoHibernate" />
+	</bean>
+
 	<!-- ============= Converter ============= -->
 
 	<bean id="clientConverter"

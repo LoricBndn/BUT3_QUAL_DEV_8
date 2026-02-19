@@ -65,6 +65,11 @@
         <property name="dao" ref="daoHibernate" />
     </bean>
 
+    <!-- Injection de la Dao dans le ResetTokenManager par le setter -->
+    <bean id="resetTokenManager" class="com.iut.banque.util.ResetTokenManager">
+        <property name="dao" ref="daoHibernate" />
+    </bean>
+
     <!-- ============= Facade ============= -->
 
     <!-- Injection du LoginManager et BanqueManager dans la BanqueFacade par le constructeur -->

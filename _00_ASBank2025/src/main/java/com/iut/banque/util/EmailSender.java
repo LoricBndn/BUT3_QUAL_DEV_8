@@ -61,8 +61,7 @@ public class EmailSender {
                 }
             });
 
-            // Mode debug (à désactiver en production)
-            session.setDebug(true);
+            session.setDebug(false);
 
             // Création du message
             Message message = new MimeMessage(session);
@@ -197,7 +196,7 @@ public class EmailSender {
                 }
             });
 
-            session.setDebug(true);
+            session.setDebug(false);
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(EmailConfig.FROM_EMAIL, EmailConfig.FROM_NAME));

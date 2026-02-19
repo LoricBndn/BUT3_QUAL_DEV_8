@@ -178,6 +178,26 @@ public interface IDao {
 	Map<String, Gestionnaire> getAllGestionnaires();
 
 	/**
+	 * Persiste un token de réinitialisation en base de données
+	 */
+	void saveResetToken(String token, String userId, long expirationTime);
+
+	/**
+	 * Retourne l'userId associé au token s'il est valide et non expiré, null sinon
+	 */
+	String getResetTokenUserId(String token);
+
+	/**
+	 * Supprime un token de réinitialisation
+	 */
+	void deleteResetToken(String token);
+
+	/**
+	 * Supprime tous les tokens expirés
+	 */
+	void deleteExpiredResetTokens();
+
+	/**
 	 * Termine la session commencée lors de isUserAllowed
 	 */
 	void disconnect();

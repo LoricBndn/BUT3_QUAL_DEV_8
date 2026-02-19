@@ -122,11 +122,11 @@ public class BanqueManager {
 
 	/**
 	 * Cette méthode renvoie tous les gestionnaires de la banque
-	 * 
-	 * @return la liste de tous les clients
+	 *
+	 * @return la liste de tous les gestionnaires
 	 */
-	public Map<String, Client> getAllManagers() {
-		return bank.getClients();
+	public Map<String, Gestionnaire> getAllManagers() {
+		return bank.getGestionnaires();
 	}
 
 	/**

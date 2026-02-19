@@ -90,6 +90,17 @@ INSERT INTO `Utilisateur` (`userId`, `nom`, `prenom`, `adresse`, `userPwd`, `mal
 --
 
 --
+-- Table structure for table `reset_tokens`
+--
+
+CREATE TABLE IF NOT EXISTS `reset_tokens` (
+    `token` varchar(255) NOT NULL,
+    `user_id` varchar(50) NOT NULL,
+    `expiration_time` bigint NOT NULL,
+    PRIMARY KEY (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Constraints for table `Compte`
 --
 ALTER TABLE `Compte`

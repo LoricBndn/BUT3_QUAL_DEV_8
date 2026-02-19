@@ -19,6 +19,7 @@ import com.iut.banque.modele.Compte;
 import com.iut.banque.modele.CompteAvecDecouvert;
 import com.iut.banque.modele.CompteSansDecouvert;
 import com.iut.banque.modele.Gestionnaire;
+import com.iut.banque.modele.ResetToken;
 import com.iut.banque.modele.Utilisateur;
 
 /**
@@ -248,6 +249,55 @@ public class DaoHibernate implements IDao {
 			ret.put(((Gestionnaire) gestionnaire).getUserId(), (Gestionnaire) gestionnaire);
 		}
 		return ret;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void saveResetToken(String token, String userId, long expirationTime) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(new ResetToken(token, userId, expirationTime));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getResetTokenUserId(String token) {
+		Session session = sessionFactory.getCurrentSession();
+		ResetToken resetToken = session.get(ResetToken.class, token);
+		if (resetToken == null) {
+			return null;
+		}
+		if (System.currentTimeMillis() > resetToken.getExpirationTime()) {
+			session.delete(resetToken);
+			return null;
+		}
+		return resetToken.getUserId();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteResetToken(String token) {
+		Session session = sessionFactory.getCurrentSession();
+		ResetToken resetToken = session.get(ResetToken.class, token);
+		if (resetToken != null) {
+			session.delete(resetToken);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteExpiredResetTokens() {
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery("DELETE FROM ResetToken WHERE expirationTime < :now")
+				.setParameter("now", System.currentTimeMillis())
+				.executeUpdate();
 	}
 
 	/**

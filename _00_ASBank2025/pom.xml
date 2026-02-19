@@ -237,6 +237,13 @@
             <artifactId>javax.activation</artifactId>
             <version>1.2.0</version>
         </dependency>
+
+        <!-- BCrypt pour le hashage sécurisé des mots de passe -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
